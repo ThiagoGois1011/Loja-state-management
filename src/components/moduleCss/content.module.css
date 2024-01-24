@@ -1,0 +1,50 @@
+.section {
+    background-color: rgb(240, 240, 240);
+    flex: 1;
+}
+
+.div_content{
+    margin: 10vh 10vh;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgb(143, 143, 143);
+}
+
+.div_content > div{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.div_header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: solid 2px rgb(184, 184, 184);
+}
+
+.header_h1{
+    font-family: "Playfair Display";
+    font-size: 2em;
+    margin: 20px ;
+}
+
+.div_header div{
+    margin-right: 20px;
+}
+
+.div_header button{
+    font-size: 1.2em;
+    font-family: "Playfair Display";
+    font-weight: 600;
+    padding: 10px 20px;
+    background-color: brown;
+    color: rgb(253, 252, 252);
+    border: none;
+}
+
+.header_adiciona{
+    margin-right: 20px;
+}
+
+
+

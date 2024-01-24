@@ -1,0 +1,34 @@
+.content_produto{
+    border: solid 2px black;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 250px;
+    padding: 10px;
+    margin: 20px;
+}
+
+.imagem{
+    width: 250px;
+}
+
+.nome{
+    display: inline;
+    margin: 0;
+}
+
+.preco{
+    display: inline;
+}
+
+.descricao{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.icone_carrinho{
+    font-size: 1.5em;
+}
