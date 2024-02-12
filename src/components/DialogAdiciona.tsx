@@ -1,12 +1,11 @@
-import { useContext } from "react";
 import style from "./moduleCss/dialogAdiciona.module.css";
-import {ApiContext} from "../App"
+import { connect } from "react-redux";
 
-function DialogAdiciona({state} : {state: boolean}){
+function DialogAdiciona(prop: any){
     
-    const Context = useContext(ApiContext);
+    
     return (
-        <div style={{display: state?"flex":"none"}} className={style.dialog_background}>
+        <div style={{display: prop.adiciona?"flex":"none"}} className={style.dialog_background}>
             <div className={style.dialog_content}>
                 <h1>Adicionar Produto</h1>
                 <div className={style.barra_horizontal}/>
@@ -26,7 +25,7 @@ function DialogAdiciona({state} : {state: boolean}){
                     </div>
                     <button className={style.button} onClick={(ev)=> {
                         ev.preventDefault();
-                        Context.setAdiciona(false)
+                        prop.setAdiciona(false);
                         const titulo: HTMLInputElement | null = document.querySelector("#titulo");
                         const src: HTMLInputElement | null = document.querySelector("#src");
                         const preco: HTMLInputElement | null = document.querySelector("#preco");
@@ -50,7 +49,7 @@ function DialogAdiciona({state} : {state: boolean}){
                             id: string;
                         }
 
-                        const index = Context.listaProdutos.length + 1;
+                        const index = prop.listaProdutos.length + 1;
                         
                         const produtoNovo: Produto = {
                             src: src?.value,
@@ -65,9 +64,9 @@ function DialogAdiciona({state} : {state: boolean}){
                             preco.value = "";
                         }  
                         
-                        Context.setLista([...Context.listaProdutos,  produtoNovo ]);
+                        prop.setLista([...prop.listaProdutos,  produtoNovo ]);
                                                  
-                        Context.setAdiciona(false)
+                        prop.setAdiciona(false);
                     }}>Adicionar</button>
                 </form>
             </div>
@@ -75,4 +74,13 @@ function DialogAdiciona({state} : {state: boolean}){
     );
 }
 
-export default DialogAdiciona;
+const mapStateToProps = (state: any): any => ({
+    ...state
+  });
+  
+  const mapDispatchToProps = (dispatch: any): any => ({
+    setAdiciona: (booleano: boolean) => dispatch({type: "adiciona", adicional: booleano}),
+    setLista: (lista: any) => dispatch({type: "lista", adicional: lista})
+  });
+
+export default connect(mapStateToProps, mapDispatchToProps)(DialogAdiciona) ;

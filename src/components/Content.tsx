@@ -1,10 +1,8 @@
 import Produto from "./Produto";
 import style from "./moduleCss/content.module.css";
-import { useContext} from "react";
-import {ApiContext} from "../App"
+import { connect } from "react-redux";
 
-function Content(){
-    const produtosList = useContext(ApiContext);
+function Content(prop: any){
 
     return(
         <section className={style.section}>
@@ -12,10 +10,10 @@ function Content(){
                 <div className={style.div_header}>
                     <h1 className={style.header_h1}>Todos os Produtos</h1>
                     <div>
-                        <button style={{display: produtosList.remove?"none":"inline"}} className={style.header_adiciona} onClick={()=> produtosList.setAdiciona(!produtosList.adiciona)} >Adicionar</button>
-                        <button style={{display: produtosList.remove?"inline":"none"}} className={style.header_adiciona} onClick={()=> produtosList.setRemove(false)} >Cancelar</button>
+                        <button style={{display: prop.remove?"none":"inline"}} className={style.header_adiciona} onClick={()=> prop.setAdiciona(!prop.adiciona)} >Adicionar</button>
+                        <button style={{display: prop.remove?"inline":"none"}} className={style.header_adiciona} onClick={()=> prop.setRemove(false)} >Cancelar</button>
                         <button onClick={()=> {
-                            if(produtosList.remove){
+                            if(prop.remove){
                                 const produtos = document.querySelectorAll(".Produto");
                                 const arrayProdutosMarcados = [];
                                 for (let index = 0; index < produtos.length; index++) {
@@ -24,34 +22,47 @@ function Content(){
                                         arrayProdutosMarcados.push(produtos[index].querySelector(".key_id")?.innerHTML)
                                     }                                                        
                                 }
-
-                                const arrayProdutosList = [...produtosList.listaProdutos];                
-                                for (let index = 0; index < arrayProdutosList.length; index++) {
-                                    const element = arrayProdutosList[index];
+                                const arrayprop = [...prop.listaProdutos];  
+                                let acrecimoIndex;              
+                                for (let index = 0; index < arrayprop.length;index = acrecimoIndex ) {
+                                    const element = arrayprop[index];
+                                    acrecimoIndex = index + 1;
                                     for (let i = 0; i < arrayProdutosMarcados.length; i++) {
                                         const element1 = arrayProdutosMarcados[i];
                                         if(element.id === element1){
-                                            arrayProdutosList.splice(index, 1);
+                                            arrayprop.splice(index, 1);
+                                            acrecimoIndex = 0;
+                                            break;
                                         }                                       
                                     } 
                                 }
 
-                                produtosList.setLista(arrayProdutosList);                       
+                                prop.setLista(arrayprop);                       
                                 
-                                produtosList.setRemove(false);
+                                prop.setRemove(false);
                             }else{
-                                produtosList.setRemove(true);
+                                prop.setRemove(true);
                             }
                             
                         }}>Remover</button>
                     </div>
                 </div>
                 <div>
-                    {produtosList.listaProdutos.map(produto => <Produto remove={produtosList.remove} id={produto.id} key={produto.id} src={produto.src} titulo={produto.titulo} preco={produto.preco}/>)}
+                    {prop.listaProdutos.map((produto:any): any => <Produto remove={prop.remove} id={produto.id} key={produto.id} src={produto.src} titulo={produto.titulo} preco={produto.preco}/>)}
                 </div>
             </div>
         </section>
     );
 }
 
-export default Content;
+const mapStateToProps = (state: any): any => ({
+    ...state
+  });
+  
+  const mapDispatchToProps = (dispatch: any): any => ({
+    setRemove: (booleano: boolean) => dispatch({type: "remove", adicional: booleano}),
+    setAdiciona: (booleano: boolean) => dispatch({type: "adiciona", adicional: booleano}),
+    setLista: (lista: any) => dispatch({type: "lista", adicional: lista})
+  });
+
+export default connect(mapStateToProps, mapDispatchToProps )(Content);
