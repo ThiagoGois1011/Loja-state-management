@@ -1,11 +1,14 @@
 import style from "./moduleCss/dialogAdiciona.module.css";
-import { connect } from "react-redux";
+import { Actions, Store, useAppSelector } from "./ReduxStore/Store";
+import { useDispatch} from "react-redux";
 
-function DialogAdiciona(prop: any){
+function DialogAdiciona(){
+    const dadosStore = useAppSelector(Store.useLoja);
+    const dispatch = useDispatch();
     
     
     return (
-        <div style={{display: prop.adiciona?"flex":"none"}} className={style.dialog_background}>
+        <div style={{display: dadosStore.adiciona?"flex":"none"}} className={style.dialog_background}>
             <div className={style.dialog_content}>
                 <h1>Adicionar Produto</h1>
                 <div className={style.barra_horizontal}/>
@@ -25,7 +28,7 @@ function DialogAdiciona(prop: any){
                     </div>
                     <button className={style.button} onClick={(ev)=> {
                         ev.preventDefault();
-                        prop.setAdiciona(false);
+                        dispatch(Actions.setAdiciona(false));
                         const titulo: HTMLInputElement | null = document.querySelector("#titulo");
                         const src: HTMLInputElement | null = document.querySelector("#src");
                         const preco: HTMLInputElement | null = document.querySelector("#preco");
@@ -49,7 +52,7 @@ function DialogAdiciona(prop: any){
                             id: string;
                         }
 
-                        const index = prop.listaProdutos.length + 1;
+                        const index = dadosStore.listaProdutos.length + 1;
                         
                         const produtoNovo: Produto = {
                             src: src?.value,
@@ -64,9 +67,8 @@ function DialogAdiciona(prop: any){
                             preco.value = "";
                         }  
                         
-                        prop.setLista([...prop.listaProdutos,  produtoNovo ]);
-                                                 
-                        prop.setAdiciona(false);
+                        dispatch(Actions.setLista([...dadosStore.listaProdutos,  produtoNovo ]));                
+                        dispatch(Actions.setAdiciona(false));
                     }}>Adicionar</button>
                 </form>
             </div>
@@ -74,13 +76,6 @@ function DialogAdiciona(prop: any){
     );
 }
 
-const mapStateToProps = (state: any): any => ({
-    ...state
-  });
-  
-  const mapDispatchToProps = (dispatch: any): any => ({
-    setAdiciona: (booleano: boolean) => dispatch({type: "adiciona", adicional: booleano}),
-    setLista: (lista: any) => dispatch({type: "lista", adicional: lista})
-  });
 
-export default connect(mapStateToProps, mapDispatchToProps)(DialogAdiciona) ;
+
+export default DialogAdiciona;

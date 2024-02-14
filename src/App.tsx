@@ -7,22 +7,17 @@ import { Provider } from "react-redux"
 import ConfigureStore from "./components/ReduxStore/Store"
 
 
-let listaProdutos = [{
-  src: "https://images.tcdn.com.br/img/img_prod/1128823/brinquedo_carro_de_policial_com_luz_e_som_e_friccao_1_16_000762_3603_2_385fa017eafcc7add45724e1a75e2b54.jpg",
-  titulo: "Carro da Polícia de Brinquedo",
-  preco: "R$ 20.00",
-  id: "1"
-}];
+
 
 
 function App() {
   let adiciona = false;
   let remove = false;
-  const store = ConfigureStore({listaProdutos, adiciona, remove})
+  const store = ConfigureStore;
   
   return (
     <div className="App">
-      <Provider store={store} >
+      <Provider store={store}>
         <Header/>
         <Content/>
         <DialogAdiciona/>
