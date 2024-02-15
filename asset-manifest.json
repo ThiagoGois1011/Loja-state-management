@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Loja-state-management/static/css/main.3c0b615a.css",
+    "main.js": "/Loja-state-management/static/js/main.3991bb57.js",
+    "static/js/787.d4aba7ab.chunk.js": "/Loja-state-management/static/js/787.d4aba7ab.chunk.js",
+    "index.html": "/Loja-state-management/index.html",
+    "main.3c0b615a.css.map": "/Loja-state-management/static/css/main.3c0b615a.css.map",
+    "main.3991bb57.js.map": "/Loja-state-management/static/js/main.3991bb57.js.map",
+    "787.d4aba7ab.chunk.js.map": "/Loja-state-management/static/js/787.d4aba7ab.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3c0b615a.css",
+    "static/js/main.3991bb57.js"
+  ]
+}
